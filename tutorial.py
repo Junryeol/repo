@@ -1,7 +1,7 @@
 # Put your KFP cluster endpoint URL here if working from GCP notebooks (or local notebooks). ('https://xxxxx.notebooks.googleusercontent.com/')
 kfp_endpoint='https://XXXXX.{pipelines|notebooks}.googleusercontent.com/'
 
-kfp_endpoint='ml-pipeline-ui.kubeflow.svc.cluster.local'
+kfp_endpoint='ml-pipeline.kubeflow.svc.cluster.local:8888'
 
 from typing import NamedTuple
 

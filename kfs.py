@@ -13,6 +13,7 @@ from kubernetes.client import V1ResourceRequirements
 namespace = utils.get_default_target_namespace()
 print(namespace)
 
+
 api_version = constants.KFSERVING_GROUP + '/' + constants.KFSERVING_VERSION
 default_endpoint_spec = V1alpha2EndpointSpec(
                           predictor=V1alpha2PredictorSpec(
@@ -33,6 +34,9 @@ KFServing.create(isvc)
 
 KFServing.get('flower-sample', namespace=namespace, watch=True, timeout_seconds=120)
 
+quit()
+
+
 canary_endpoint_spec = V1alpha2EndpointSpec(
                          predictor=V1alpha2PredictorSpec(
                            tensorflow=V1alpha2TensorflowSpec(
@@ -49,7 +53,18 @@ KFServing.rollout_canary('flower-sample', percent=50, namespace=namespace,
 
 KFServing.promote('flower-sample', namespace=namespace, watch=True, timeout_seconds=120)
 
-quit()
 
 KFServing.delete('flower-sample', namespace=namespace)
 
+#{
+#  "instances": [
+#    [6.8,  2.8,  4.8,  1.4],
+#    [6.0,  3.4,  4.5,  1.6]
+#  ]
+#}
+#SERVICE_HOSTNAME=flower-sample.admin.svc.cluster.local
+#INGRESS_HOST=
+#INGRESS_PORT=80
+#MODEL_NAME=flower-sample
+#INPUT_PATH=@./input.json
+#curl -v -H "Host: ${SERVICE_HOSTNAME}" http://${INGRESS_HOST}:${INGRESS_PORT}/v1/models/$MODEL_NAME:predict -d $INPUT_PATH

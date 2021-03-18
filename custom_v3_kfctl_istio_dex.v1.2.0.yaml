@@ -17,11 +17,6 @@ spec:
   - kustomizeConfig:
       repoRef:
         name: manifests
-        path: stacks/kubernetes/application/istio-stack
-    name: istio-stack
-  - kustomizeConfig:
-      repoRef:
-        name: manifests
         path: stacks/kubernetes/application/cluster-local-gateway
     name: cluster-local-gateway
   - kustomizeConfig:

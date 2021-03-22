@@ -17,13 +17,11 @@ def add(a: float, b: float) -> float:
     print(a, '+', b, '=', a + b)
     return a + b
 
-
 # Convert the function to a pipeline operation.
 add_op = components.func_to_container_op(
     add,
     base_image='tensorflow/tensorflow:2.0.0b0-py3', 
 )
-
 
 @dsl.pipeline(
    name='Calculation pipeline',
@@ -41,17 +39,15 @@ def calc_pipeline(
     
     add_3_task = add_op(add_task.output, add_2_task.output)
 
-    
-# Specify pipeline argument values
-arguments = {'a': '7', 'b': '8'}
-# Launch a pipeline run given the pipeline function definition
-kfp.Client().create_run_from_pipeline_func(calc_pipeline, arguments=arguments, 
-                                           experiment_name=EXPERIMENT_NAME)
-# The generated links below lead to the Experiment page and the pipeline run details page, respectively
+
+# Compile the pipeline
+pipeline_func = calc_pipeline
+pipeline_filename = pipeline_func.__name__ + '.pipeline.zip'
+compiler.Compiler().compile(pipeline_func, pipeline_filename)
 
 # Get or create an experiment
 client = kfp.Client()
-experiment = client.create_experiment(EXPERIMENT_NAME)
+experiment = client.create_experiment(EXPERIMENT_NAME, namespace=mynamespace)
 
 # Specify pipeline argument values
 arguments = {'a': '3', 'b': '4'}
@@ -59,5 +55,3 @@ arguments = {'a': '3', 'b': '4'}
 # Submit a pipeline run
 run_name = pipeline_func.__name__ + ' run'
 run_result = client.run_pipeline(experiment.id, run_name, pipeline_filename, arguments)
-
-# The generated link below leads to the pipeline run information page.

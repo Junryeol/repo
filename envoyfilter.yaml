@@ -19,7 +19,7 @@ spec:
         request_headers_to_add:
         - append: true
           header:
-            key: kubeflow
+            key: kubeflow-userid
             value: <user-email>
   workloadSelector:
     labels:

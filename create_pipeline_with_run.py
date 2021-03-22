@@ -10,7 +10,7 @@ EXPERIMENT_NAME = 'myexperiment'
 @dsl.python_component(
     name='add_op',
     description='adds two numbers',
-    base_image=BASE_IMAGE  # you can define the base image here, or when you build in the next step. 
+    base_image='tensorflow/tensorflow:2.0.0b0-py3'
 )
 def add(a: float, b: float) -> float:
     '''Calculates sum of two arguments'''

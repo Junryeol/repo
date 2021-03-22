@@ -20,4 +20,4 @@ def hello_world_pipeline():
     echo_task = echo_op()
 
 if __name__ == '__main__':
-	  kfp.Client().create_run_from_pipeline_func(hello_world_pipeline, experiment_name='test-exp')
+    kfp.Client().create_run_from_pipeline_func(hello_world_pipeline, namespace=mynamespace)
